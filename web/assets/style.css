@@ -353,16 +353,6 @@ button.primary:hover { background: var(--accent-strong); }
   margin-bottom: 2px;
 }
 
-/* ---------- задачи в несколько колонок на широких экранах ---------- */
-
-#tasks.multi {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
-  gap: 16px;
-  align-items: start;
-}
-#tasks.multi .task { margin-bottom: 0; }
-
 /* ---------- ноутбук и планшет ---------- */
 
 @media (max-width: 1100px) {

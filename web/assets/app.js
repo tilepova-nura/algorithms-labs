@@ -232,7 +232,6 @@
       <div id="tasks"></div>
       ${pagerHtml(lab.number)}`);
     const container = document.getElementById('tasks');
-    if (lab.tasks.length > 1) container.classList.add('multi');
     lab.tasks.forEach((task, index) => container.appendChild(renderTask(task, index, lab)));
   }
 
