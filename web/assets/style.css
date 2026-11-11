@@ -44,7 +44,7 @@ a { color: var(--accent); }
 
 /* ---------- раскладка: боковое меню + содержимое ---------- */
 
-.layout { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+.layout { display: grid; grid-template-columns: clamp(220px, 19vw, 290px) minmax(0, 1fr); min-height: 100vh; }
 
 .sidebar {
   background: var(--sidebar);
@@ -107,7 +107,7 @@ a { color: var(--accent); }
 
 .mobile-nav { display: none; }
 
-main { max-width: 940px; width: 100%; padding: 32px 40px 64px; }
+main { max-width: 1320px; width: 100%; margin: 0 auto; padding: clamp(20px, 3vw, 44px) clamp(16px, 3.2vw, 48px) 64px; }
 
 /* ---------- шапка страницы: зелёная плашка ---------- */
 
@@ -115,7 +115,7 @@ main { max-width: 940px; width: 100%; padding: 32px 40px 64px; }
   background: var(--hero);
   color: var(--on-accent);
   border-radius: var(--radius);
-  padding: 30px 32px 28px;
+  padding: clamp(22px, 3vw, 40px) clamp(20px, 3vw, 44px);
   margin-bottom: 26px;
 }
 .eyebrow {
@@ -128,7 +128,7 @@ main { max-width: 940px; width: 100%; padding: 32px 40px 64px; }
 }
 h1 {
   font-family: var(--serif);
-  font-size: 40px;
+  font-size: clamp(28px, 3.4vw, 48px);
   line-height: 1.1;
   margin: 10px 0 8px;
   font-weight: 600;
@@ -170,7 +170,7 @@ h2 .task-num {
 
 /* ---------- главная ---------- */
 
-.lab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.lab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 14px; }
 .lab-card {
   display: block;
   padding: 18px 18px 16px;
@@ -196,6 +196,7 @@ h2 .task-num {
 /* ---------- карточка задачи ---------- */
 
 .task {
+  min-width: 0;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -352,10 +353,28 @@ button.primary:hover { background: var(--accent-strong); }
   margin-bottom: 2px;
 }
 
+/* ---------- задачи в несколько колонок на широких экранах ---------- */
+
+#tasks.multi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+  gap: 16px;
+  align-items: start;
+}
+#tasks.multi .task { margin-bottom: 0; }
+
+/* ---------- ноутбук и планшет ---------- */
+
+@media (max-width: 1100px) {
+  .sidebar { padding: 22px 10px; }
+  .side-nav a { grid-template-columns: 44px 1fr; font-size: 13.5px; padding: 6px 8px; }
+  .brand .subject { font-size: 19px; }
+}
+
 /* ---------- мобильная версия ---------- */
 
 @media (max-width: 860px) {
-  .layout { grid-template-columns: 1fr; }
+  .layout { grid-template-columns: minmax(0, 1fr); }
   .sidebar { display: none; }
   .mobile-nav {
     display: flex; gap: 10px; align-items: center;
@@ -376,4 +395,18 @@ button.primary:hover { background: var(--accent-strong); }
   h1 { font-size: 30px; }
   .task { padding: 16px; }
   .field input { width: 110px; }
+}
+
+/* ---------- узкие телефоны ---------- */
+
+@media (max-width: 520px) {
+  .field { flex: 1 1 calc(50% - 7px); }
+  .field input { width: 100%; }
+  .actions button { flex: 1 1 auto; }
+  .lab-grid { grid-template-columns: 1fr; }
+  .pager a, .pager a.next { flex-basis: 100%; text-align: left; }
+  h2 { font-size: 19px; flex-wrap: wrap; gap: 8px; }
+  .steps { font-size: 14px; }
+  .steps td:last-child { min-width: 140px; }
+  .output { font-size: 14px; }
 }
